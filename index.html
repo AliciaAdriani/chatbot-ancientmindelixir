@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AncientMind Elixir Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #chatbot {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    #chatlog {
+      flex: 1;
+      height: 320px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .message {
+      margin: 6px 0;
+      padding: 10px 14px;
+      border-radius: 16px;
+      max-width: 80%;
+      line-height: 1.4;
+    }
+    .bot {
+      background-color: #e0e7ff;
+      align-self: flex-start;
+    }
+    .user {
+      background-color: #bbf7d0;
+      align-self: flex-end;
+    }
+    #userInput {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      width: 75%;
+    }
+    button {
+      padding: 10px;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="chatbot">
+    <div id="chatlog"></div>
+    <div style="display: flex;">
+      <input id="userInput" type="text" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatlog = document.getElementById('chatlog');
+    const responses = {
+      "hi": "Hello! I'm your AncientMind assistant. How can I support your journey today?",
+      "hello": "Hi there! How can I help you today?",
+      "how to use": "Take 1 capsule daily at any time that works best for you. Consistency is key!",
+      "how does it work": "AncientMind Elixir gently decalcifies your pineal gland, awakening clarity, intuition, and inner power.",
+      "effects": "First week: deeper sleep, clarity, energy. Later: reduced anxiety, vivid dreams, spiritual connection.",
+      "when does it start": "You may feel changes in the first week. Effects increase with continuous use.",
+      "missed a dose": "No problem! Just continue the next day. Try placing the bottle somewhere visible like near your toothbrush.",
+      "ritual": "Take 10 seconds to breathe deeply and say: 'I am activating the divine intelligence within me.'",
+      "refund": "We'd love to help you experience the full benefits! Many people notice deeper results after 3-4 weeks. Would you consider continuing a bit longer? If you still wish to proceed, please email us at support@ancientmindelixir.com.",
+      "side effects": "AncientMind is formulated with gentle, natural ingredients. Most users feel more calm and focused. If unsure, consult your physician.",
+      "what is this": "It's more than a supplement — it's a daily ritual to reconnect with your inner wisdom, clarity, and power.",
+      "email": "You can reach us at support@ancientmindelixir.com. We're here to help!",
+      "support": "Our team is ready to assist. Email us anytime at support@ancientmindelixir.com."
+    };
+
+    function appendMessage(text, sender = 'bot') {
+      const msg = document.createElement('div');
+      msg.className = 'message ' + sender;
+      msg.innerText = text;
+      chatlog.appendChild(msg);
+      chatlog.scrollTop = chatlog.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage(text, 'user');
+      const lower = text.toLowerCase();
+      const key = Object.keys(responses).find(k => lower.includes(k));
+      const reply = key ? responses[key] : "I'm not sure I understand. Please try asking another way, or contact us at support@ancientmindelixir.com.";
+      setTimeout(() => appendMessage(reply, 'bot'), 500);
+      input.value = '';
+    }
+
+    appendMessage(\"Hi there! I'm your AncientMind assistant. Ask me anything about your journey, the elixir, or support.\");
+  </script>
+</body>
+</html>
